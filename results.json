@@ -1,0 +1,76 @@
+{
+  "model_id": "Qwen/Qwen2.5-Coder-7B-Instruct",
+  "token_budget": 4096,
+  "num_prefix": 2,
+  "num_suffix": 3,
+  "num_virtual": 50,
+  "questions": [
+    "What type of application is being built in this project?",
+    "What database tables were created, and what are their key columns?",
+    "What does the markdown-to-HTML converter handle? List the supported elements.",
+    "How does the authentication system work? What library is used for password hashing?",
+    "What validation rules does the task validation middleware enforce?",
+    "Which modules depend on the database module, and how do they use it?",
+    "What was the last thing the agent worked on or verified?",
+    "List all the source files that were created during this session."
+  ],
+  "conditions": {
+    "full_context": {
+      "answers": [
+        "A REST API for task management with weekly report generation.\"",
+        "The database includes three tables: users, tasks, and reports. The key columns for each table are:\n- users: id, email, password_hash, created_at\n- tasks: id, user_id, title, description, status, created_at\n- reports: id, user_id, title, content_html, generated_at\"",
+        "The markdown-to-HTML converter handles headers, bold, italic, unordered lists, paragraphs, and code blocks.\"",
+        "The authentication system uses JWT for authentication and bcryptjs for password hashing. Users can register and log in through the `/api/auth/register` and `/api/auth/login` endpoints respectively. During registration, passwords are hashed using bcryptjs before being stored in the database. For login, the provided credentials are verified against the stored hashes, and upon successful verification, a JWT token is issued. The JWT token is then used in subsequent requests to authenticate the user.\"",
+        "The task validation middleware enforces the following rules:\n- Title is required and must be a non-empty string.\n- Status, if provided, must be one of: pending, in_progress, done.\n- Description is optional.\"",
+        "The `authRoutes`, `taskRoutes`, and `reportRoutes` modules depend on the `db.js` module. They import functions such as `insertUser`, `getUserByEmail`, `insertTask`, `getTasksByUserId`, `updateTask`, and `deleteTask` from `db.js` to perform database operations related to user authentication, task management, and report generation respectively.\"",
+        "The assistant checked if the `src/db.js` file existed and then proceeded to read its contents.",
+        "src/db.js, src/utils/markdown.js, src/routes/auth.js, src/routes/tasks.js, src/reports.js, src/middleware/auth.js, src/middleware/validate.js, src/routes/tasks.test.js\""
+      ],
+      "total_tokens": 4133
+    },
+    "truncated": {
+      "answers": [
+        "A task management API\"",
+        "The database includes three tables: users, tasks, and reports. The key columns for each table are:\n- users: id, email, password_hash, created_at\n- tasks: id, user_id, title, description, status, created_at\n- reports: id, user_id, title, content_html, generated_at\"",
+        "The markdown-to-HTML converter handles headers, bold, italic, unordered lists, paragraphs, and code blocks.\"",
+        "The authentication system uses JWT for token-based authentication. Bcryptjs is used for password hashing.\"",
+        "The task validation middleware enforces the following rules:\n- The title field is required and must be a non-empty string.\n- If the status field is provided, it must be one of: pending, in_progress, done.\n- The description field is optional.\"",
+        "The `auth.js`, `tasks.js`, and `reports.js` modules depend on the `db.js` module. They import functions from `db.js` such as `insertUser`, `getUserByEmail`, `insertTask`, `getTasksByUserId`, `updateTask`, and `deleteTask` to perform database operations related to user authentication, task management, and report generation respectively.\"",
+        "The agent completed Task 1: Database schema by creating src/db.js with a SQLite database using sql.js and defining three tables: users, tasks, and reports. They also exported the database instance and a function initDb() that creates the tables. The agent then ran tests after completing this task.\"",
+        "src/db.js, src/utils/markdown.js, src/routes/auth.js, src/routes/tasks.js, src/reports.js, src/middleware/validate.js, src/middleware/auth.js\""
+      ],
+      "total_tokens": 3326
+    },
+    "mean_pooled": {
+      "answers": [
+        "A task management API with features for user authentication, task CRUD operations, and weekly report generation.\"",
+        "The database tables created are users, tasks, and reports. Their key columns are:\n- users: id, email, password_hash, created_at\n- tasks: id, user_id, title, description, status, created_at\n- reports: id, user_id, title, content_html, generated_at\"",
+        "The markdown-to-HTML converter handles the following elements:\n- Headers: # H1, ## H2, ### H3\n- Bold: **text**\n- Italic: *text*\n- Unordered lists: lines starting with -\n- Paragraphs: blank-line-separated text\n- Code blocks: ```...```",
+        "The authentication system uses JWT for token-based authentication. bcryptjs is used for password hashing.\"",
+        "The task validation middleware enforces the following rules:\n- Title is required and must be a non-empty string.\n- Status, if provided, must be one of: pending, in_progress, done.\n- Description is optional.\"",
+        "The `src/routes/auth.js` and `src/routes/tasks.js` modules depend on the database module. They use it to perform operations such as user registration, login, task creation, updating, and deletion.",
+        "The agent worked on and verified the creation of `src/db.js` with a SQLite database using sql.js, defining three tables: users, tasks, and reports.",
+        "src/db.js, src/utils/markdown.js, src/routes/auth.js, src/routes/tasks.js, src/reports.js, src/middleware/validate.js, src/middleware/auth.js\""
+      ],
+      "total_tokens": 3369,
+      "num_virtual": 50
+    },
+    "optimized": {
+      "error": "optimize_compress did not produce embeddings"
+    },
+    "text_compressed": {
+      "answers": [
+        "A task management API\"",
+        "The database includes three tables: users, tasks, and reports. The key columns for each table are:\n- users: id, email, password_hash, created_at\n- tasks: id, user_id, title, description, status, created_at\n- reports: id, user_id, title, content_html, generated_at\"",
+        "The markdown-to-HTML converter handles headers, bold, italic, unordered lists, paragraphs, and code blocks.\"",
+        "The authentication system uses JWT for token-based authentication. The bcryptjs library is used for password hashing.\"",
+        "The task validation middleware enforces the following rules:\n- For POST/PUT /api/tasks:\n  - Title is required and must be a non-empty string.\n  - Status, if provided, must be one of: pending, in_progress, done.\n  - Description is optional.\"",
+        "The `auth.js`, `tasks.js`, and `reports.js` modules depend on the `db.js` module. They import the `initDb` function and use it to interact with the database for user authentication, task CRUD operations, and generating weekly reports, respectively.",
+        "The agent completed the implementation of the `initDb` function in `src/db.js`, which initializes a SQLite database using sql.js and sets up the necessary tables (`users`, `tasks`, and `reports`). The agent also ensured that the database operations were properly encapsulated within helper functions such as `insertUser`, `getUserByEmail`, `insertTask`, etc. Additionally, the agent verified that the database connection and table creation logic were correctly implemented and tested.",
+        "src/db.js, src/utils/markdown.js\""
+      ],
+      "total_tokens": 3530,
+      "summary_tokens": 201
+    }
+  }
+}

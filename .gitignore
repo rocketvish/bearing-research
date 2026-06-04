@@ -4,3 +4,5 @@ __pycache__/
 .ruff_cache/
 .claude/
 uv.lock
+*.log
+*.output

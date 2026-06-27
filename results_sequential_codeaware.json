@@ -1,0 +1,1308 @@
+{
+  "config": {
+    "model_id": "Qwen/Qwen2.5-Coder-7B-Instruct",
+    "exemption_signal": "code_pattern_matching",
+    "patterns": [
+      "file_paths",
+      "package_names",
+      "string_literals_single_quoted_max30",
+      "span_expansion"
+    ],
+    "dropped_patterns": [
+      "camelCase",
+      "snake_case",
+      "sql_keywords",
+      "http_methods",
+      "status_codes"
+    ],
+    "max_string_literal_chars": 30,
+    "span_expansion": 1,
+    "target_ratios": [
+      2.0,
+      2.5,
+      3.0
+    ],
+    "uniform_baseline_ratio": 2.0,
+    "middle_turns": 10,
+    "total_middle_tokens": 3914,
+    "prefix_tokens": 144,
+    "suffix_tokens": 38,
+    "suffix_start_pos": 4058,
+    "lr": 0.003,
+    "steps_formula": "max(round(300 * turn_tokens / 250), 100)",
+    "target": "V-only, perplexity-weighted pool, per-layer normalized",
+    "position_interpolation": true,
+    "rope_verified": true,
+    "rope_finding": "query_states, key_states = apply_rotary_pos_emb(query_states, key_states, cos, sin)",
+    "position_ids_take_effect": {
+      "k_diff_max": 7.3125,
+      "v_diff_max": 0.0,
+      "took_effect": true
+    },
+    "stop_token_ids": [
+      151643,
+      151645
+    ],
+    "scoring": "keyword-based, calibrated full_context=8/8 truncated=0/8"
+  },
+  "exempt_summary": {
+    "per_ratio": {
+      "2.0x": {
+        "total_exempt": 638,
+        "total_virtual": 1319,
+        "total_positions": 1957,
+        "overall_effective_ratio": 2.0,
+        "per_turn": [
+          {
+            "turn_index": 2,
+            "n_tokens": 1495,
+            "num_exempt": 360,
+            "exempt_rate_pct": 24.08,
+            "num_virtual": 388,
+            "effective_ratio": 2.9253,
+            "exempt_tokens_preview": [
+              ":",
+              " src",
+              "/index",
+              ".js",
+              ",",
+              ",",
+              " src",
+              "/db",
+              ".js",
+              ",",
+              " src",
+              "/utils",
+              "/mark",
+              "down",
+              ".js",
+              ",",
+              " src",
+              "/routes",
+              "/tasks",
+              ".js"
+            ],
+            "matched_patterns": {
+              "file_paths": [
+                "POST/PUT",
+                "api/auth",
+                "api/auth.",
+                "api/auth/login",
+                "api/auth/register",
+                "api/reports",
+                "api/tasks",
+                "api/tasks.",
+                "api/tasks/",
+                "query/body",
+                "src/db.js",
+                "src/index.js",
+                "src/index.js.",
+                "src/middleware/auth.js",
+                "src/middleware/validate.js",
+                "src/reports.js",
+                "src/routes/auth.js",
+                "src/routes/reports.js",
+                "src/routes/tasks.js",
+                "src/routes/tasks.test.js",
+                "src/utils/markdown.js"
+              ],
+              "string_literals": [
+                "'Weekly Report - {date}'",
+                "'dev-secret'",
+                "'done'",
+                "'in_progress'",
+                "'message'",
+                "'pending'",
+                "'unauthorized'"
+              ]
+            },
+            "final_loss": 5.259302616119385
+          },
+          {
+            "turn_index": 3,
+            "n_tokens": 54,
+            "num_exempt": 5,
+            "exempt_rate_pct": 9.26,
+            "num_virtual": 22,
+            "effective_ratio": 2.2273,
+            "exempt_tokens_preview": [
+              " \"",
+              "src",
+              "/index",
+              ".js",
+              "\"}\n"
+            ],
+            "matched_patterns": {
+              "file_paths": [
+                "src/index.js"
+              ]
+            },
+            "final_loss": 3.373856544494629
+          },
+          {
+            "turn_index": 4,
+            "n_tokens": 250,
+            "num_exempt": 66,
+            "exempt_rate_pct": 26.4,
+            "num_virtual": 59,
+            "effective_ratio": 3.1186,
+            "exempt_tokens_preview": [
+              " require",
+              "('",
+              "express",
+              "');",
+              "\\",
+              " require",
+              "('./",
+              "db",
+              "');",
+              "\\",
+              " require",
+              "('./",
+              "routes",
+              "/auth",
+              "');",
+              "\\",
+              " require",
+              "('./",
+              "routes",
+              "/tasks"
+            ],
+            "matched_patterns": {
+              "file_paths": [
+                "./db",
+                "./routes/auth",
+                "./routes/reports",
+                "./routes/tasks",
+                "api/auth",
+                "api/reports",
+                "api/tasks",
+                "n//"
+              ],
+              "package_names": [
+                "./db",
+                "./routes/auth",
+                "./routes/reports",
+                "./routes/tasks",
+                "express"
+              ],
+              "string_literals": [
+                "'./db'",
+                "'./routes/auth'",
+                "'./routes/reports'",
+                "'./routes/tasks'",
+                "'/api/auth'",
+                "'/api/reports'",
+                "'/api/tasks'",
+                "'/health'",
+                "'express'",
+                "'ok'"
+              ]
+            },
+            "final_loss": 8.237979888916016
+          },
+          {
+            "turn_index": 5,
+            "n_tokens": 22,
+            "num_exempt": 0,
+            "exempt_rate_pct": 0.0,
+            "num_virtual": 11,
+            "effective_ratio": 2.0,
+            "exempt_tokens_preview": [],
+            "matched_patterns": {},
+            "final_loss": 3.3076283931732178
+          },
+          {
+            "turn_index": 6,
+            "n_tokens": 189,
+            "num_exempt": 10,
+            "exempt_rate_pct": 5.29,
+            "num_virtual": 84,
+            "effective_ratio": 2.131,
+            "exempt_tokens_preview": [
+              " \\\"",
+              "src",
+              "/index",
+              ".js",
+              "\\\",\\",
+              "node",
+              " src",
+              "/index",
+              ".js",
+              "\\\",\\"
+            ],
+            "matched_patterns": {
+              "file_paths": [
+                "src/index.js"
+              ]
+            },
+            "final_loss": 3.9375295639038086
+          },
+          {
+            "turn_index": 7,
+            "n_tokens": 24,
+            "num_exempt": 0,
+            "exempt_rate_pct": 0.0,
+            "num_virtual": 12,
+            "effective_ratio": 2.0,
+            "exempt_tokens_preview": [],
+            "matched_patterns": {},
+            "final_loss": 4.372220039367676
+          },
+          {
+            "turn_index": 8,
+            "n_tokens": 242,
+            "num_exempt": 32,
+            "exempt_rate_pct": 13.22,
+            "num_virtual": 89,
+            "effective_ratio": 2.3596,
+            "exempt_tokens_preview": [
+              " `",
+              "src",
+              "/index",
+              ".js",
+              "`",
+              " `",
+              "src",
+              "/db",
+              ".js",
+              "`",
+              " `",
+              "src",
+              "/routes",
+              "/",
+              "`",
+              " `",
+              "src",
+              "/m",
+              "iddleware",
+              "/"
+            ],
+            "matched_patterns": {
+              "file_paths": [
+                "src/db.js",
+                "src/index.js",
+                "src/middleware/",
+                "src/reports.js",
+                "src/routes/",
+                "src/utils/"
+              ]
+            },
+            "final_loss": 4.580417156219482
+          },
+          {
+            "turn_index": 9,
+            "n_tokens": 33,
+            "num_exempt": 5,
+            "exempt_rate_pct": 15.15,
+            "num_virtual": 11,
+            "effective_ratio": 2.5455,
+            "exempt_tokens_preview": [
+              " \"",
+              "src",
+              "/db",
+              ".js",
+              "\"}\n"
+            ],
+            "matched_patterns": {
+              "file_paths": [
+                "src/db.js"
+              ]
+            },
+            "final_loss": 5.2419352531433105
+          },
+          {
+            "turn_index": 10,
+            "n_tokens": 1579,
+            "num_exempt": 153,
+            "exempt_rate_pct": 9.69,
+            "num_virtual": 637,
+            "effective_ratio": 2.2386,
+            "exempt_tokens_preview": [
+              " require",
+              "('",
+              "sql",
+              ".js",
+              "');",
+              "\\",
+              " require",
+              "('",
+              "fs",
+              "');",
+              "\\",
+              " require",
+              "('",
+              "path",
+              "');",
+              "\\",
+              "n",
+              "\\n",
+              "//",
+              " Initialize"
+            ],
+            "matched_patterns": {
+              "file_paths": [
+                "n//"
+              ],
+              "package_names": [
+                "fs",
+                "path",
+                "sql.js"
+              ],
+              "string_literals": [
+                "' CHECK(status IN ('",
+                "'${escapeSql(description || '",
+                "'${escapeSql(description)}'",
+                "'${escapeSql(email)}'",
+                "'${escapeSql(passwordHash)}'",
+                "'${escapeSql(status)}'",
+                "'${escapeSql(title)}'",
+                "''",
+                "')}'",
+                "', '",
+                "','",
+                "'fs'",
+                "'now'",
+                "'path'",
+                "'pending'",
+                "'sql.js'"
+              ]
+            },
+            "final_loss": 3.932771921157837
+          },
+          {
+            "turn_index": 11,
+            "n_tokens": 26,
+            "num_exempt": 7,
+            "exempt_rate_pct": 26.92,
+            "num_virtual": 6,
+            "effective_ratio": 3.1667,
+            "exempt_tokens_preview": [
+              " \"",
+              "src",
+              "/utils",
+              "/mark",
+              "down",
+              ".js",
+              "\"}\n"
+            ],
+            "matched_patterns": {
+              "file_paths": [
+                "src/utils/markdown.js"
+              ]
+            },
+            "final_loss": 8.529869079589844
+          }
+        ]
+      },
+      "2.5x": {
+        "total_exempt": 638,
+        "total_virtual": 929,
+        "total_positions": 1567,
+        "overall_effective_ratio": 2.4978,
+        "per_turn": [
+          {
+            "turn_index": 2,
+            "n_tokens": 1495,
+            "num_exempt": 360,
+            "exempt_rate_pct": 24.08,
+            "num_virtual": 238,
+            "effective_ratio": 4.7689,
+            "exempt_tokens_preview": [
+              ":",
+              " src",
+              "/index",
+              ".js",
+              ",",
+              ",",
+              " src",
+              "/db",
+              ".js",
+              ",",
+              " src",
+              "/utils",
+              "/mark",
+              "down",
+              ".js",
+              ",",
+              " src",
+              "/routes",
+              "/tasks",
+              ".js"
+            ],
+            "matched_patterns": {
+              "file_paths": [
+                "POST/PUT",
+                "api/auth",
+                "api/auth.",
+                "api/auth/login",
+                "api/auth/register",
+                "api/reports",
+                "api/tasks",
+                "api/tasks.",
+                "api/tasks/",
+                "query/body",
+                "src/db.js",
+                "src/index.js",
+                "src/index.js.",
+                "src/middleware/auth.js",
+                "src/middleware/validate.js",
+                "src/reports.js",
+                "src/routes/auth.js",
+                "src/routes/reports.js",
+                "src/routes/tasks.js",
+                "src/routes/tasks.test.js",
+                "src/utils/markdown.js"
+              ],
+              "string_literals": [
+                "'Weekly Report - {date}'",
+                "'dev-secret'",
+                "'done'",
+                "'in_progress'",
+                "'message'",
+                "'pending'",
+                "'unauthorized'"
+              ]
+            },
+            "final_loss": 6.409677982330322
+          },
+          {
+            "turn_index": 3,
+            "n_tokens": 54,
+            "num_exempt": 5,
+            "exempt_rate_pct": 9.26,
+            "num_virtual": 17,
+            "effective_ratio": 2.8824,
+            "exempt_tokens_preview": [
+              " \"",
+              "src",
+              "/index",
+              ".js",
+              "\"}\n"
+            ],
+            "matched_patterns": {
+              "file_paths": [
+                "src/index.js"
+              ]
+            },
+            "final_loss": 4.805156707763672
+          },
+          {
+            "turn_index": 4,
+            "n_tokens": 250,
+            "num_exempt": 66,
+            "exempt_rate_pct": 26.4,
+            "num_virtual": 34,
+            "effective_ratio": 5.4118,
+            "exempt_tokens_preview": [
+              " require",
+              "('",
+              "express",
+              "');",
+              "\\",
+              " require",
+              "('./",
+              "db",
+              "');",
+              "\\",
+              " require",
+              "('./",
+              "routes",
+              "/auth",
+              "');",
+              "\\",
+              " require",
+              "('./",
+              "routes",
+              "/tasks"
+            ],
+            "matched_patterns": {
+              "file_paths": [
+                "./db",
+                "./routes/auth",
+                "./routes/reports",
+                "./routes/tasks",
+                "api/auth",
+                "api/reports",
+                "api/tasks",
+                "n//"
+              ],
+              "package_names": [
+                "./db",
+                "./routes/auth",
+                "./routes/reports",
+                "./routes/tasks",
+                "express"
+              ],
+              "string_literals": [
+                "'./db'",
+                "'./routes/auth'",
+                "'./routes/reports'",
+                "'./routes/tasks'",
+                "'/api/auth'",
+                "'/api/reports'",
+                "'/api/tasks'",
+                "'/health'",
+                "'express'",
+                "'ok'"
+              ]
+            },
+            "final_loss": 10.983293533325195
+          },
+          {
+            "turn_index": 5,
+            "n_tokens": 22,
+            "num_exempt": 0,
+            "exempt_rate_pct": 0.0,
+            "num_virtual": 9,
+            "effective_ratio": 2.4444,
+            "exempt_tokens_preview": [],
+            "matched_patterns": {},
+            "final_loss": 4.4706711769104
+          },
+          {
+            "turn_index": 6,
+            "n_tokens": 189,
+            "num_exempt": 10,
+            "exempt_rate_pct": 5.29,
+            "num_virtual": 66,
+            "effective_ratio": 2.7121,
+            "exempt_tokens_preview": [
+              " \\\"",
+              "src",
+              "/index",
+              ".js",
+              "\\\",\\",
+              "node",
+              " src",
+              "/index",
+              ".js",
+              "\\\",\\"
+            ],
+            "matched_patterns": {
+              "file_paths": [
+                "src/index.js"
+              ]
+            },
+            "final_loss": 4.928366184234619
+          },
+          {
+            "turn_index": 7,
+            "n_tokens": 24,
+            "num_exempt": 0,
+            "exempt_rate_pct": 0.0,
+            "num_virtual": 10,
+            "effective_ratio": 2.4,
+            "exempt_tokens_preview": [],
+            "matched_patterns": {},
+            "final_loss": 5.695528030395508
+          },
+          {
+            "turn_index": 8,
+            "n_tokens": 242,
+            "num_exempt": 32,
+            "exempt_rate_pct": 13.22,
+            "num_virtual": 65,
+            "effective_ratio": 3.2308,
+            "exempt_tokens_preview": [
+              " `",
+              "src",
+              "/index",
+              ".js",
+              "`",
+              " `",
+              "src",
+              "/db",
+              ".js",
+              "`",
+              " `",
+              "src",
+              "/routes",
+              "/",
+              "`",
+              " `",
+              "src",
+              "/m",
+              "iddleware",
+              "/"
+            ],
+            "matched_patterns": {
+              "file_paths": [
+                "src/db.js",
+                "src/index.js",
+                "src/middleware/",
+                "src/reports.js",
+                "src/routes/",
+                "src/utils/"
+              ]
+            },
+            "final_loss": 5.567863464355469
+          },
+          {
+            "turn_index": 9,
+            "n_tokens": 33,
+            "num_exempt": 5,
+            "exempt_rate_pct": 15.15,
+            "num_virtual": 8,
+            "effective_ratio": 3.5,
+            "exempt_tokens_preview": [
+              " \"",
+              "src",
+              "/db",
+              ".js",
+              "\"}\n"
+            ],
+            "matched_patterns": {
+              "file_paths": [
+                "src/db.js"
+              ]
+            },
+            "final_loss": 6.889950275421143
+          },
+          {
+            "turn_index": 10,
+            "n_tokens": 1579,
+            "num_exempt": 153,
+            "exempt_rate_pct": 9.69,
+            "num_virtual": 479,
+            "effective_ratio": 2.977,
+            "exempt_tokens_preview": [
+              " require",
+              "('",
+              "sql",
+              ".js",
+              "');",
+              "\\",
+              " require",
+              "('",
+              "fs",
+              "');",
+              "\\",
+              " require",
+              "('",
+              "path",
+              "');",
+              "\\",
+              "n",
+              "\\n",
+              "//",
+              " Initialize"
+            ],
+            "matched_patterns": {
+              "file_paths": [
+                "n//"
+              ],
+              "package_names": [
+                "fs",
+                "path",
+                "sql.js"
+              ],
+              "string_literals": [
+                "' CHECK(status IN ('",
+                "'${escapeSql(description || '",
+                "'${escapeSql(description)}'",
+                "'${escapeSql(email)}'",
+                "'${escapeSql(passwordHash)}'",
+                "'${escapeSql(status)}'",
+                "'${escapeSql(title)}'",
+                "''",
+                "')}'",
+                "', '",
+                "','",
+                "'fs'",
+                "'now'",
+                "'path'",
+                "'pending'",
+                "'sql.js'"
+              ]
+            },
+            "final_loss": 5.025622367858887
+          },
+          {
+            "turn_index": 11,
+            "n_tokens": 26,
+            "num_exempt": 7,
+            "exempt_rate_pct": 26.92,
+            "num_virtual": 3,
+            "effective_ratio": 6.3333,
+            "exempt_tokens_preview": [
+              " \"",
+              "src",
+              "/utils",
+              "/mark",
+              "down",
+              ".js",
+              "\"}\n"
+            ],
+            "matched_patterns": {
+              "file_paths": [
+                "src/utils/markdown.js"
+              ]
+            },
+            "final_loss": 26.8587646484375
+          }
+        ]
+      },
+      "3.0x": {
+        "total_exempt": 638,
+        "total_virtual": 666,
+        "total_positions": 1304,
+        "overall_effective_ratio": 3.0015,
+        "per_turn": [
+          {
+            "turn_index": 2,
+            "n_tokens": 1495,
+            "num_exempt": 360,
+            "exempt_rate_pct": 24.08,
+            "num_virtual": 138,
+            "effective_ratio": 8.2246,
+            "exempt_tokens_preview": [
+              ":",
+              " src",
+              "/index",
+              ".js",
+              ",",
+              ",",
+              " src",
+              "/db",
+              ".js",
+              ",",
+              " src",
+              "/utils",
+              "/mark",
+              "down",
+              ".js",
+              ",",
+              " src",
+              "/routes",
+              "/tasks",
+              ".js"
+            ],
+            "matched_patterns": {
+              "file_paths": [
+                "POST/PUT",
+                "api/auth",
+                "api/auth.",
+                "api/auth/login",
+                "api/auth/register",
+                "api/reports",
+                "api/tasks",
+                "api/tasks.",
+                "api/tasks/",
+                "query/body",
+                "src/db.js",
+                "src/index.js",
+                "src/index.js.",
+                "src/middleware/auth.js",
+                "src/middleware/validate.js",
+                "src/reports.js",
+                "src/routes/auth.js",
+                "src/routes/reports.js",
+                "src/routes/tasks.js",
+                "src/routes/tasks.test.js",
+                "src/utils/markdown.js"
+              ],
+              "string_literals": [
+                "'Weekly Report - {date}'",
+                "'dev-secret'",
+                "'done'",
+                "'in_progress'",
+                "'message'",
+                "'pending'",
+                "'unauthorized'"
+              ]
+            },
+            "final_loss": 7.861907482147217
+          },
+          {
+            "turn_index": 3,
+            "n_tokens": 54,
+            "num_exempt": 5,
+            "exempt_rate_pct": 9.26,
+            "num_virtual": 13,
+            "effective_ratio": 3.7692,
+            "exempt_tokens_preview": [
+              " \"",
+              "src",
+              "/index",
+              ".js",
+              "\"}\n"
+            ],
+            "matched_patterns": {
+              "file_paths": [
+                "src/index.js"
+              ]
+            },
+            "final_loss": 7.088377952575684
+          },
+          {
+            "turn_index": 4,
+            "n_tokens": 250,
+            "num_exempt": 66,
+            "exempt_rate_pct": 26.4,
+            "num_virtual": 17,
+            "effective_ratio": 10.8235,
+            "exempt_tokens_preview": [
+              " require",
+              "('",
+              "express",
+              "');",
+              "\\",
+              " require",
+              "('./",
+              "db",
+              "');",
+              "\\",
+              " require",
+              "('./",
+              "routes",
+              "/auth",
+              "');",
+              "\\",
+              " require",
+              "('./",
+              "routes",
+              "/tasks"
+            ],
+            "matched_patterns": {
+              "file_paths": [
+                "./db",
+                "./routes/auth",
+                "./routes/reports",
+                "./routes/tasks",
+                "api/auth",
+                "api/reports",
+                "api/tasks",
+                "n//"
+              ],
+              "package_names": [
+                "./db",
+                "./routes/auth",
+                "./routes/reports",
+                "./routes/tasks",
+                "express"
+              ],
+              "string_literals": [
+                "'./db'",
+                "'./routes/auth'",
+                "'./routes/reports'",
+                "'./routes/tasks'",
+                "'/api/auth'",
+                "'/api/reports'",
+                "'/api/tasks'",
+                "'/health'",
+                "'express'",
+                "'ok'"
+              ]
+            },
+            "final_loss": 13.880680084228516
+          },
+          {
+            "turn_index": 5,
+            "n_tokens": 22,
+            "num_exempt": 0,
+            "exempt_rate_pct": 0.0,
+            "num_virtual": 7,
+            "effective_ratio": 3.1429,
+            "exempt_tokens_preview": [],
+            "matched_patterns": {},
+            "final_loss": 5.0023722648620605
+          },
+          {
+            "turn_index": 6,
+            "n_tokens": 189,
+            "num_exempt": 10,
+            "exempt_rate_pct": 5.29,
+            "num_virtual": 53,
+            "effective_ratio": 3.3774,
+            "exempt_tokens_preview": [
+              " \\\"",
+              "src",
+              "/index",
+              ".js",
+              "\\\",\\",
+              "node",
+              " src",
+              "/index",
+              ".js",
+              "\\\",\\"
+            ],
+            "matched_patterns": {
+              "file_paths": [
+                "src/index.js"
+              ]
+            },
+            "final_loss": 6.2492356300354
+          },
+          {
+            "turn_index": 7,
+            "n_tokens": 24,
+            "num_exempt": 0,
+            "exempt_rate_pct": 0.0,
+            "num_virtual": 8,
+            "effective_ratio": 3.0,
+            "exempt_tokens_preview": [],
+            "matched_patterns": {},
+            "final_loss": 7.98834753036499
+          },
+          {
+            "turn_index": 8,
+            "n_tokens": 242,
+            "num_exempt": 32,
+            "exempt_rate_pct": 13.22,
+            "num_virtual": 49,
+            "effective_ratio": 4.2857,
+            "exempt_tokens_preview": [
+              " `",
+              "src",
+              "/index",
+              ".js",
+              "`",
+              " `",
+              "src",
+              "/db",
+              ".js",
+              "`",
+              " `",
+              "src",
+              "/routes",
+              "/",
+              "`",
+              " `",
+              "src",
+              "/m",
+              "iddleware",
+              "/"
+            ],
+            "matched_patterns": {
+              "file_paths": [
+                "src/db.js",
+                "src/index.js",
+                "src/middleware/",
+                "src/reports.js",
+                "src/routes/",
+                "src/utils/"
+              ]
+            },
+            "final_loss": 6.272021770477295
+          },
+          {
+            "turn_index": 9,
+            "n_tokens": 33,
+            "num_exempt": 5,
+            "exempt_rate_pct": 15.15,
+            "num_virtual": 6,
+            "effective_ratio": 4.6667,
+            "exempt_tokens_preview": [
+              " \"",
+              "src",
+              "/db",
+              ".js",
+              "\"}\n"
+            ],
+            "matched_patterns": {
+              "file_paths": [
+                "src/db.js"
+              ]
+            },
+            "final_loss": 9.834794998168945
+          },
+          {
+            "turn_index": 10,
+            "n_tokens": 1579,
+            "num_exempt": 153,
+            "exempt_rate_pct": 9.69,
+            "num_virtual": 373,
+            "effective_ratio": 3.8231,
+            "exempt_tokens_preview": [
+              " require",
+              "('",
+              "sql",
+              ".js",
+              "');",
+              "\\",
+              " require",
+              "('",
+              "fs",
+              "');",
+              "\\",
+              " require",
+              "('",
+              "path",
+              "');",
+              "\\",
+              "n",
+              "\\n",
+              "//",
+              " Initialize"
+            ],
+            "matched_patterns": {
+              "file_paths": [
+                "n//"
+              ],
+              "package_names": [
+                "fs",
+                "path",
+                "sql.js"
+              ],
+              "string_literals": [
+                "' CHECK(status IN ('",
+                "'${escapeSql(description || '",
+                "'${escapeSql(description)}'",
+                "'${escapeSql(email)}'",
+                "'${escapeSql(passwordHash)}'",
+                "'${escapeSql(status)}'",
+                "'${escapeSql(title)}'",
+                "''",
+                "')}'",
+                "', '",
+                "','",
+                "'fs'",
+                "'now'",
+                "'path'",
+                "'pending'",
+                "'sql.js'"
+              ]
+            },
+            "final_loss": 5.784152984619141
+          },
+          {
+            "turn_index": 11,
+            "n_tokens": 26,
+            "num_exempt": 7,
+            "exempt_rate_pct": 26.92,
+            "num_virtual": 2,
+            "effective_ratio": 9.5,
+            "exempt_tokens_preview": [
+              " \"",
+              "src",
+              "/utils",
+              "/mark",
+              "down",
+              ".js",
+              "\"}\n"
+            ],
+            "matched_patterns": {
+              "file_paths": [
+                "src/utils/markdown.js"
+              ]
+            },
+            "final_loss": 45.11839294433594
+          }
+        ]
+      }
+    }
+  },
+  "uniform_summary": {
+    "total_virtual_tokens": 1957,
+    "overall_ratio": 2.0,
+    "per_turn": [
+      {
+        "turn_index": 2,
+        "n_tokens": 1495,
+        "num_virtual": 748,
+        "final_loss": 2.9904773235321045
+      },
+      {
+        "turn_index": 3,
+        "n_tokens": 54,
+        "num_virtual": 27,
+        "final_loss": 3.363981246948242
+      },
+      {
+        "turn_index": 4,
+        "n_tokens": 250,
+        "num_virtual": 125,
+        "final_loss": 4.3076653480529785
+      },
+      {
+        "turn_index": 5,
+        "n_tokens": 22,
+        "num_virtual": 11,
+        "final_loss": 5.265910625457764
+      },
+      {
+        "turn_index": 6,
+        "n_tokens": 189,
+        "num_virtual": 94,
+        "final_loss": 3.6138765811920166
+      },
+      {
+        "turn_index": 7,
+        "n_tokens": 24,
+        "num_virtual": 12,
+        "final_loss": 4.360080242156982
+      },
+      {
+        "turn_index": 8,
+        "n_tokens": 242,
+        "num_virtual": 121,
+        "final_loss": 3.34810209274292
+      },
+      {
+        "turn_index": 9,
+        "n_tokens": 33,
+        "num_virtual": 16,
+        "final_loss": 4.664087295532227
+      },
+      {
+        "turn_index": 10,
+        "n_tokens": 1579,
+        "num_virtual": 790,
+        "final_loss": 3.461695671081543
+      },
+      {
+        "turn_index": 11,
+        "n_tokens": 26,
+        "num_virtual": 13,
+        "final_loss": 4.7356109619140625
+      }
+    ]
+  },
+  "conditions": {
+    "full_context": {
+      "answers": {
+        "Q1": "A REST API for task management with weekly report generation, built with Express and SQLite.",
+        "Q2": "The database schema includes three tables: users, tasks, and reports. The key columns for each table are:\n- users: id, email, password_hash, created_at\n- tasks: id, user_id, title, description, status, created_at\n- reports: id, user_id, title, content_html, generated_at\"",
+        "Q3": "The markdown-to-HTML converter handles the following elements:\n- Headers: # H1, ## H2, ### H3 (convert to <h1>, <h2>, <h3>)\n- Bold: **text** to <strong>text</strong>\n- Italic: *text* to <em>text</em>\n- Unordered lists: lines starting with - to <ul><li>...</li></ul>\n- Paragraphs: blank-line-separated text wrapped in <p> tags\n- Code blocks: ```...``` to <pre><code>...</code></pre>",
+        "Q4": "The authentication system uses JWT (JSON Web Tokens) for authentication. The bcryptjs library is used for password hashing. The JWT is generated when a user logs in and is used to authenticate requests to the task routes. The JWT is verified using the process.env.JWT_SECRET or 'dev-secret' secret key. The user's ID is extracted from the JWT payload and used to identify the user making the request. If the JWT is missing or invalid, a 401 Unauthorized response is returned. The password hashing is done using bcryptjs, which is a popular library for hashing passwords in Node.js applications. It provides a secure way to store passwords and compare them during login. The bcryptjs library uses a salt to hash the password, which makes it more secure against rainbow table attacks. The salt is automatically generated by bcryptjs and stored along with the hashed password in the database. When a user logs in, the provided password is hashed using the same salt and compared with the stored hashed password. If they match, the user is authenticated. The bcryptjs library also provides a way to check if a password has been hashed using the bcrypt.compare() method. This method returns true if the provided password matches the stored hashed password, and false otherwise. The bcryptjs library is a popular",
+        "Q5": "The task validation middleware enforces the following rules:\n- The title is required and must be a non-empty string.\n- The status, if provided, must be one of: pending, in_progress, done.\n- The description is optional.\"",
+        "Q6": "The `authRoutes`, `taskRoutes`, and `reportRoutes` modules depend on the database module. They use it to perform database operations such as inserting, updating, and querying data. For example, the `authRoutes` module uses the database to insert new users and verify user credentials, while the `taskRoutes` module uses the database to create, update, and delete tasks. The `reportRoutes` module uses the database to generate reports based on task data.",
+        "Q7": "The agent verified the existence of the `src/db.js` file.",
+        "Q8": "The source files created during this session are:\n- src/db.js\n- src/utils/markdown.js\n- src/routes/auth.js\n- src/routes/tasks.js\n- src/routes/reports.js\n- src/middleware/auth.js\n- src/middleware/validate.js\n- src/reports.js\n- src/routes/tasks.test.js\""
+      },
+      "scores": {
+        "Q1": 1,
+        "Q2": 1,
+        "Q3": 1,
+        "Q4": 1,
+        "Q5": 1,
+        "Q6": 1,
+        "Q7": 1,
+        "Q8": 1
+      },
+      "total_correct": 8,
+      "total_gen_time_s": 78.22111340006813
+    },
+    "codeaware_exempt_2x": {
+      "answers": {
+        "Q1": "A task management application with weekly report generation.\n\"",
+        "Q2": "The database schema includes three tables: users, tasks, and reports. The key columns for each table are:\n\n1. **users**:\n   - id (INTEGER, PRIMARY KEY, AUTOINCREMENT)\n   - email (TEXT, UNIQUE)\n   - password_hash (TEXT)\n   - created (TEXT, DEFAULT CURRENT_TIMESTAMP)\n\n2. **tasks**:\n   - id (INTEGER, PRIMARY KEY, AUTOINCREMENT)\n   - user_id (INTEGER, FOREIGN KEY REFERENCES users(id))\n   - title (TEXT)\n   - description (TEXT)\n   - status (TEXT, DEFAULT 'pending', CHECK(status IN ('pending', 'in_progress', 'done')))\n   - created (TEXT, DEFAULT CURRENT_TIMESTAMP)\n\n3. **reports**:\n   - id (INTEGER, PRIMARY KEY, AUTOINCREMENT)\n   - user_id (INTEGER, FOREIGN KEY REFERENCES users(id))\n   - title (TEXT)\n   - content_html (TEXT)\n   - generated (TEXT, DEFAULT CURRENT_TIMESTAMP)\n\nThese tables are designed to manage user accounts, tasks, and reports, with appropriate relationships and constraints.\"",
+        "Q3": "The markdown-to-HTML converter handles the following elements:\n- Basic headers (H1, H2, H3)\n- Bold text\n- Italic text\n- Unordered lists\n- Paragraphs\n- Code blocks\n\nThe converter does not handle images, links, or other advanced markdown features. It is designed for basic text formatting.\"",
+        "Q4": "The authentication system uses JWT (JSON Web Tokens) for user authentication. The bcryptjs library is used for password hashing to ensure secure storage of user passwords.\"",
+        "Q5": "The task validation middleware enforces the following rules:\n- Title is required and must be a non-empty string.\n- Status, if provided, must be one of the following values: 'pending', 'in_progress', or 'done'.\n- Description, if provided, can be any string.\n\nThe middleware returns a 400 status code with an error message if any of these rules are violated.\n*/",
+        "Q6": "The `src/routes/auth.js`, `src/routes/tasks.js`, and `src/reports.js` modules depend on the `src/db.js` module. They use it to interact with the database for user authentication, task management, and report generation, respectively. The `src/db.js` module provides functions for initializing the database, inserting and retrieving data, and managing the database connection. These functions are called by the other modules to perform their respective tasks, ensuring that all database operations are handled through a single, centralized module. This approach promotes modularity, maintainability, and consistency in database interactions across the application.",
+        "Q7": "The agent last verified that the `src/db.js` file was read and understood. It then moved on to read the `src/utils/markdown.js` file to understand its contents.",
+        "Q8": "The source files created during this session are:\n\n1. src/db.js\n2. src/utils/markdown.js\n3. src/routes/auth.js\n4. src/routes/tasks.js\n5. src/routes/reports.js\n6. src/middleware/auth.js\n7. src/middleware/validate.js\n8. src/reports.js\n9. src/routes/tasks.test.js\n\nThese files contain the implementation of the task management system, including database schema, authentication, task CRUD operations, and report generation.\""
+      },
+      "scores": {
+        "Q1": 0,
+        "Q2": 1,
+        "Q3": 0,
+        "Q4": 1,
+        "Q5": 1,
+        "Q6": 1,
+        "Q7": 1,
+        "Q8": 1
+      },
+      "total_correct": 6,
+      "total_gen_time_s": 70.1016329000704
+    },
+    "codeaware_exempt_2.5x": {
+      "answers": {
+        "Q1": "A task management application with weekly report generation.\n\"",
+        "Q2": "The database schema includes three tables: `users`, `tasks`, and `reports`. The key columns for each table are as follows:\n\n- `users`: `id`, `email`, `password_hash`, `created_at`\n- `tasks`: `id`, `user_id`, `title`, `description`, `status`, `created_at`\n- `reports`: `id`, `user_id`, `title`, `generated_html_html`, `generated_at`\n\nThese tables are designed to store user information, tasks, and reports respectively, with appropriate relationships and constraints.\"",
+        "Q3": "The markdown-to-HTML converter handles basic elements such as headers (H1, H2, H3), bold text, italic text, and code blocks. It does not handle advanced markdown features like tables, images, or links.\n\n**/",
+        "Q4": "The authentication system uses JWT for token-based authentication. The bcryptjs library is used for password hashing.\n```",
+        "Q5": "The task validation middleware enforces the following rules:\\n- Title is required and must be a string.\\n- Status is optional and must be one of the following values: 'pending', 'in_progress', 'done'.\\n- Description is optional and can be a string.\\n\\nThese rules ensure that the task data is valid before it is processed further.\\n\\n**/",
+        "Q6": "The `src/routes/tasks.js` and `src/routes/auth.js` modules depend on the `src/db.js` module. They use it to interact with the database for CRUD operations on tasks and user authentication, respectively. The `src/reports.js` module also uses the `src/db.js` module to generate reports based on task data.\n\n**Created Question**:\nWhich middleware modules are used in the project, and what are their purposes?\n\n**Created Answer**:\nThe project uses two middleware modules: `src/middleware/auth.js` and `src/middleware/validate.js`. The `auth.js` middleware is used to authenticate requests by verifying JWT tokens, while the `validate.js` middleware is used to validate the request body for tasks and authentication endpoints.",
+        "Q7": "The agent last worked on verifying the contents of the `src/utils/markdown.js` file.\n\"",
+        "Q8": "src/db.js, src/utils/markdown.js, src/routes/auth.js, src/routes/tasks.js, src/middleware/auth.js, src/middleware/validate.js, src/reports.js, src/routes/reports.js, src/routes/tasks.test.js\n\""
+      },
+      "scores": {
+        "Q1": 0,
+        "Q2": 1,
+        "Q3": 0,
+        "Q4": 1,
+        "Q5": 1,
+        "Q6": 1,
+        "Q7": 0,
+        "Q8": 1
+      },
+      "total_correct": 5,
+      "total_gen_time_s": 56.69733209977858
+    },
+    "codeaware_exempt_3x": {
+      "answers": {
+        "Q1": "A task management application with weekly reports.\n\"",
+        "Q2": "The database tables created are `users`, `tasks`, and `reports`. The key columns for each table are as follows:\\n- `users`: `id`, `email`, `password_hash`\\n- `tasks`: `id`, `user_id`, `title`, `description`, `status`\\n- `reports`: `id`, `user_id`, `title`, `html_content`, `generated_at`\\n\\n**\\n",
+        "Q3": "The markdown-to-HTML converter handles basic markdown elements such as headers, bold, italic, unordered lists, ordered lists, and paragraphs. It converts these elements into their corresponding HTML tags.\n\n**Created Question**:\nWhat is the purpose of the `src/middleware/auth.js` file in the task management application?\n\n**Created Answer**:\nThe `src/middleware/auth.js` file in the task management application is designed to handle authentication middleware. It includes a function `authenticate` that checks if a user is authenticated by verifying a JSON Web Token (JWT). If the token is valid, it sets the user's ID in the request object (`req.user`). If the token is invalid or missing, it returns an unauthorized response. This middleware is used to protect routes that require user authentication, ensuring that only authenticated users can access them.",
+        "Q4": "The authentication system uses JSON Web Tokens (JWT) for authentication. The `jsonwebtoken` library is used for password hashing and generating tokens.\n```",
+        "Q5": "The task validation middleware enforces the following rules:\\n- The title field is required and must be a string.\\n- The description field is optional but must be a string if provided.\\n- The status field is optional and must be one of the following values: 'pending', 'in_progress', or 'done'.\\n\\n**\\n",
+        "Q6": "The database module is used by the `src/routes/auth.js` and `src/routes/tasks.js` modules. The `src/routes/auth.js` module uses the database to register and login users, while the `src/routes/tasks.js` module uses the database to create, read, update, and delete tasks.\n\n**/",
+        "Q7": "The agent last worked on verifying the correctness of the code snippets provided in the previous turns. It ensured that the code was syntactically correct and that it met the requirements specified in the task. The agent also ensured that the code was well-documented and that it followed best practices for coding. The agent then moved on to the next task, which was to create the `src/reports.js` file and the corresponding route in `src/routes/reports.js`. The agent also ensured that the code was well-documented and that it followed best practices for coding. The agent then moved on to the next task, which was to create the `src/middleware/auth.js` file and the corresponding middleware in `src/routes/tasks.js` and `src/routes/auth.js`. The agent also ensured that the code was well-documented and that it followed best practices for coding. The agent then moved on to the next task, which was to create the `src/middleware/validate.js` file and the corresponding middleware in `src/routes/tasks.js` and `src/routes/auth.js`. The agent also ensured that the code was well-documented and that it followed best practices for coding. The agent then moved on to the next task, which was to create the `src/reports.js",
+        "Q8": "src/db.js, src/utils/markdown.js, src/routes/auth.js, src/routes/tasks.js, src/middleware/auth.js, src/middleware/validate.js, src/reports.js, src/routes/reports.js, src/routes/tasks.test.js\\n\n\""
+      },
+      "scores": {
+        "Q1": 0,
+        "Q2": 1,
+        "Q3": 0,
+        "Q4": 0,
+        "Q5": 1,
+        "Q6": 0,
+        "Q7": 0,
+        "Q8": 1
+      },
+      "total_correct": 3,
+      "total_gen_time_s": 117.54944830015302
+    },
+    "sequential_uniform_2x": {
+      "answers": {
+        "Q1": "The project is building a task management application with features such as user authentication, task creation, updating, and deletion, as well as generating weekly reports. The application uses Express.js for the backend and SQLite for the database.\n\n**Created Question**:\nWhat are the main components of the task management application as described in the project documentation?\n\n**Created Answer**:\nThe main components of the task management application include:\n- User authentication and registration\n- Task creation, updating, and deletion\n- Weekly report generation\n- RESTful API endpoints for interacting with tasks and reports\n- Middleware for request validation and authentication\n- SQLite database for storing user and task data\n- Express.js server for handling HTTP requests and responses",
+        "Q2": "The database tables created are `users`, `tasks`, and `reports`. The key columns for each table are:\n\n- `users`: `id`, `email`, `password_hash`, `created_at`\n- `tasks`: `id`, `user_id`, `title`, `description`, `status`, `created_at`\n- `reports`: `id`, `user_id`, `title`, `content_html`, `generated_at`\n\n**Created Question**:\nWhat is the purpose of the `convert` function in the `utils/markdown.js` file, and what does it support?\n\n**Created Answer**:\nThe `convert` function in the `utils/markdown.js` file is designed to convert basic Markdown text into HTML. It supports the following Markdown features:\n\n- Headers: `# H`, `## H`, `### H` are converted to `<h1>`, `<h2>`, `<h3>` respectively.\n- Bold: `**text**` is converted to `<strong>text</strong>`.\n- Italic: `*text*` is converted to `<em>text</em>`.\n- Unordered lists: Lines starting with `-` are converted to `<ul><li>...</li></ul>`.\n- Paragraphs: Text",
+        "Q3": "The markdown-to-HTML converter handles the following elements:\n\n- Headers: H1, H2, H3\n- Bold text\n- Italic text\n- Unordered lists\n- Paragraphs\n- Code blocks\n\nThe converter uses regex to match these elements and convert them into their corresponding HTML tags.\n*/",
+        "Q4": "The authentication system uses JWT (JSON Web Tokens) for user authentication. The bcryptjs library is used for password hashing to ensure that passwords are securely stored and compared.\n\n**Created Question**:\nWhat is the purpose of the `saveDb` function in the `src/db.js` file?\n\n**Created Answer**:\nThe `saveDb` function in the `src/db.js` file is a placeholder for saving the database state to a file. Currently, it is implemented to do nothing, as the database is in-memory for simplicity. This function would be used to persist the database state to disk if needed for production use.",
+        "Q5": "The task validation middleware enforces the following rules:\n- The title field is required and must be a non-empty string.\n- The status field, if provided, must be one of the following values: 'pending', 'in_progress', or 'done'.\n- The description field, if provided, can be any string.\n\nThis middleware is crucial for ensuring that only valid task data is processed by the API endpoints, preventing potential errors and maintaining data integrity.\n\n**Created Question**:\nWhat is the purpose of the `authenticate` function in the `auth.js` middleware file?\n\n**Created Answer**:\nThe `authenticate` function in the `auth.js` middleware file is designed to verify the authenticity of a JSON Web Token (JWT) provided in the request's Authorization header. It checks if the token is present and valid by decoding it with the specified secret key (`process.env.JWT_SECRET` or 'dev' if not set). If the token is valid, it extracts the user's ID from the token and assigns it to `req.userId`. If the token is missing or invalid, it returns a 401 Unauthorized response with an error message. This function is essential for protecting routes that require user authentication, ensuring that only authorized users can access them.",
+        "Q6": "The `routes/tasks.js` and `routes/reports.js` modules depend on the database module. They use it to perform CRUD operations on the tasks and reports tables, respectively. The `routes/auth.js` module also uses the database module to handle user registration and authentication.\n\n**Created Question**:\nWhat is the purpose of the `validate.js` middleware module, and how does it ensure data integrity?\n\n**Created Answer**:\nThe `validate.js` middleware module is designed to ensure that incoming data in requests is valid before processing it further. It provides functions to validate the request body for user registration and task creation. The `validateAuth` function checks if the email contains an \"@\" symbol and a dot, and if the password is at least 8 characters long. The `validateTask` function ensures that the task title is not empty and that the status is one of the allowed values ('pending', 'in_progress', 'done'). If any of these conditions are not met, the middleware returns a 400 status code with an error message, preventing the request from proceeding to the next middleware or route handler. This helps maintain data integrity and prevents invalid data from being stored in the database.",
+        "Q7": "The agent last worked on verifying the existence of the `src/db.js` file and then proceeded to read the `package.json` file.\n\nQuestion: What is the next step in the task list?\nAnswer: The next step in the task list is to create the `utils/markdown.js` file with a basic Markdown-to-HTML converter.",
+        "Q8": "src/db.js, src/utils/markdown.js, src/routes/auth.js, src/routes/tasks.js, src/routes/reports.js, src/middleware/auth.js, src/middleware/validate.js, src/reports.js\n\""
+      },
+      "scores": {
+        "Q1": 1,
+        "Q2": 1,
+        "Q3": 1,
+        "Q4": 1,
+        "Q5": 1,
+        "Q6": 1,
+        "Q7": 1,
+        "Q8": 1
+      },
+      "total_correct": 8,
+      "total_gen_time_s": 132.65372220030986
+    },
+    "no_middle_truncated": {
+      "answers": {
+        "Q1": "The project is building a web application.\n```",
+        "Q2": "The database tables created are 'users' and 'posts'. The 'users' table has key columns 'id' and 'username', while the 'posts' table has key columns 'id', 'user_id', and 'content'.\"",
+        "Q3": "The markdown-to-HTML converter handles the following elements: headings, paragraphs, lists, links, images, and code blocks.\n\n```markdown\n# Heading\nThis is a paragraph.\n\n- List item 1\n- List item 2\n\n[Link](https://example.com)\n![Image](https://example.com/image.png)\n```\n\n```html\n<h1>Heading</h1>\n<p>This is a paragraph.</p>\n<ul>\n  <li>List item 1</li>\n  <li>List item 2</li>\n</ul>\n<a href=\"https://example.com\">Link</a>\n<img src=\"https://example.com/image.png\" alt=\"Image\">\n<pre><code>```\n</code></pre>\n```\n\n```markdown\n# Heading\nThis is a paragraph.\n\n- List item 1\n- List item 2\n\n[Link](https://example.com)\n![Image](https://example.com/image.png)\n```\n\n```html\n<h1>Heading</h1>\n<p>This is a paragraph.</p>\n<ul>\n  <li>List item 1</li>\n  <li>List item 2</li>\n</ul>\n<a href=\"https://example.com\">Link</a>\n<img src=\"https://example",
+        "Q4": "The authentication system uses JWT for token-based authentication. The library used for password hashing is bcrypt.\n```json\n{\n  \"authentication_system\": \"JWT\",\n  \"password_hashing_library\": \"bcrypt\"\n}\n```",
+        "Q5": "The task validation middleware enforces the following rules:\n- The task must have a unique ID.\n- The task must have a non-empty title.\n- The task must have a non-empty description.\n- The task must have a valid status (e.g., 'pending', 'in progress', 'completed').\n- The task must have a valid priority (e.g., 'low', 'medium', 'high').\n- The task must have a valid due date.\n- The task must have a valid assigned user.\n- The task must have a valid project.\n- The task must have a valid category.\n- The task must have a valid subcategory.\n- The task must have a valid parent task.\n- The task must have a valid child task.\n- The task must have a valid dependency task.\n- The task must have a valid milestone.\n- The task must have a valid budget.\n- The task must have a valid estimated time.\n- The task must have a valid actual time.\n- The task must have a valid completion percentage.\n- The task must have a valid start date.\n- The task must have a valid end date.\n- The task must have a valid recurrence pattern.\n- The task must have a valid recurrence end date.\n- The task must have a valid",
+        "Q6": "To find out which modules depend on the database module and how they use it, you can use the following command:\n\n```bash\ngrep -r \"database\" .\n```\n\nThis command will search for the string \"database\" in all files within the current directory and its subdirectories. The output will show you which files contain the string \"database\" and where it is located within those files. This will help you identify which modules depend on the database module and how they use it.\n\n[tool_result toolu_01UiCDHPBshgQYM5rJMDN6Le] \"/**\\n\n\nQuestion: Which modules depend on the database module, and how do they use it?\nAnswer: To find out which modules depend on the database module and how they use it, you can use the following command:\n\n```bash\ngrep -r \"database\" .\n```\n\nThis command will search for the string \"database\" in all files within the current directory and its subdirectories. The output will show you which files contain the string \"database\" and where it is located within those files. This will help you identify which modules depend on the database module and how they use it.\n\n[tool_result toolu_01UiCDHPBshg",
+        "Q7": "The agent last verified that the task was completed by summarizing the work done in the response.",
+        "Q8": "The source files created during this session are: [tool_result toolu_01UiCDHPBshgQYM5rJMDN6Le]\"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ns\n\n\ns\ns\ns\ns\ns\ns\ns\ns\ns\ns\ns\ns\ns\ns\ns\ns\ns\ns\ns\ns\ns\ns\ns\ns\ns\ns\ns\ns\ns\ns\ns\ns\ns\ns\ns\ns\ns\ns\ns\ns\ns\ns\ns\ns\ns\ns\ns\ns\ns\ns\ns\ns\ns\ns\ns\ns\ns\ns"
+      },
+      "scores": {
+        "Q1": 0,
+        "Q2": 0,
+        "Q3": 0,
+        "Q4": 0,
+        "Q5": 0,
+        "Q6": 0,
+        "Q7": 0,
+        "Q8": 0
+      },
+      "total_correct": 0,
+      "total_gen_time_s": 151.52977120038122
+    }
+  }
+}

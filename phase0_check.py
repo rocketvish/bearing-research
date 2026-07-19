@@ -16,7 +16,7 @@ from pathlib import Path
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 
-MODEL_ID = "Qwen/Qwen2.5-Coder-7B-Instruct"
+from config import MODEL_ID
 TRANSCRIPT_PATH = Path(__file__).parent / "transcript.jsonl"
 TARGET_SIZES = [2048, 4096]
 
@@ -278,8 +278,15 @@ def _extract_kv(past_key_values):
     if hasattr(past_key_values, "layers"):
         out = []
         for layer in past_key_values.layers:
-            k = getattr(layer, "keys", None) or getattr(layer, "key_cache", None)
-            v = getattr(layer, "values", None) or getattr(layer, "value_cache", None)
+            # Don't use `a or b` here: these attrs are tensors and bool(tensor)
+            # raises "Boolean value of Tensor ... is ambiguous". Newer
+            # transformers (Qwen3 Cache layout) exposes layer.keys/.values.
+            k = getattr(layer, "keys", None)
+            if k is None:
+                k = getattr(layer, "key_cache", None)
+            v = getattr(layer, "values", None)
+            if v is None:
+                v = getattr(layer, "value_cache", None)
             out.append((k, v))
         return out
     raise RuntimeError(f"Unknown past_key_values type: {type(past_key_values)}")
@@ -551,7 +558,7 @@ def step9_summary():
     def by(x):
         return fmt_bytes(x) if isinstance(x, int) else "n/a"
 
-    print("Model: Qwen2.5-Coder-7B-Instruct (8-bit)")
+    print(f"Model: {MODEL_ID} (8-bit)")
     print(f"GPU: {r['gpu_name']} ({gb(r['gpu_total_vram_gb'])})")
     print(f"Model VRAM: {gb(r['model_vram_gb'])}")
     print(f"Transcript tokens: {r['transcript_tokens']}")

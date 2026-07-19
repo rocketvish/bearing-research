@@ -19,6 +19,8 @@ import time
 import torch
 import torch.nn.functional as F
 
+from config import strip_thinking
+
 
 def _vram_str() -> str:
     if not torch.cuda.is_available():
@@ -166,16 +168,19 @@ class ContextCompressor:
             f"suffix={suffix_len}, total_seq={total_seq}, "
             f"compressed_anchor={compressed_anchor}"
         )
-        if total_seq > 1500:
-            # Phase 0 measured this: gradient computation above ~1500 tokens
-            # overflows to host RAM and causes a ~100x slowdown. Refuse to
-            # silently turn a 2-minute optimization into a 3-hour one.
+        if total_seq > 1300:
+            # phase0_grad_ceiling.py measured this on Qwen3-8B 8-bit (RTX 5090,
+            # checkpointing on): the on-GPU ceiling is 1400 tokens; above that
+            # the fp32-Adam backward overflows to host RAM and causes a ~100x
+            # slowdown (2.8s -> 39s/step at 1450, 211s at 2200). 1300 is the safe
+            # limit (~2.5 GB headroom). Refuse to silently turn a 2-minute
+            # optimization into a multi-hour one.
             raise ValueError(
                 f"optimize_compress: total_seq={total_seq} (prefix={prefix_len} + "
-                f"V={num_virtual_tokens} + suffix={suffix_len}) exceeds the 1500-"
-                f"token gradient budget validated in Phase 0. Reduce "
+                f"V={num_virtual_tokens} + suffix={suffix_len}) exceeds the 1300-"
+                f"token gradient budget measured for Qwen3-8B in Phase 0. Reduce "
                 f"num_virtual_tokens (currently {num_virtual_tokens}, max "
-                f"{max(0, 1500 - prefix_len - suffix_len)} for this context) "
+                f"{max(0, 1300 - prefix_len - suffix_len)} for this context) "
                 f"or shrink the context window."
             )
 
@@ -264,7 +269,7 @@ class ContextCompressor:
         dt = time.perf_counter() - t0
 
         new_ids = generated[0, prompt_len:]
-        summary_text = self.tokenizer.decode(new_ids, skip_special_tokens=True).strip()
+        summary_text = strip_thinking(self.tokenizer.decode(new_ids, skip_special_tokens=True))
 
         # Re-embed the summary text on its own (don't include the instruction).
         summary_ids = self.tokenizer(

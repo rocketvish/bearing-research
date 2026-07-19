@@ -43,7 +43,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 
 # ----------------------------- constants -----------------------------
 
-MODEL_ID = "Qwen/Qwen2.5-Coder-7B-Instruct"
+from config import MODEL_ID, strip_thinking
 TRANSCRIPT_PATH = Path(__file__).parent / "transcript.jsonl"
 RESULTS_PATH = Path(__file__).parent / "results_feasibility_pplpool.json"
 
@@ -269,14 +269,14 @@ def extract_new_kv_grad_safe(cache, prefix_len: int) -> list[tuple[torch.Tensor,
 
 def verify_rope_for_qwen() -> tuple[bool, str]:
     try:
-        from transformers.models.qwen2 import modeling_qwen2
-        src = inspect.getsource(modeling_qwen2.Qwen2Attention.forward)
+        from transformers.models.qwen3 import modeling_qwen3
+        src = inspect.getsource(modeling_qwen3.Qwen3Attention.forward)
     except Exception as e:
-        return False, f"could not inspect Qwen2Attention.forward: {e}"
+        return False, f"could not inspect Qwen3Attention.forward: {e}"
 
     matched = [ln.strip() for ln in src.splitlines() if "apply_rotary_pos_emb" in ln]
     if not matched:
-        return False, "apply_rotary_pos_emb not found in Qwen2Attention.forward"
+        return False, "apply_rotary_pos_emb not found in Qwen3Attention.forward"
 
     assign = next((ln for ln in matched if "= apply_rotary_pos_emb" in ln), None)
     if assign is None:
@@ -434,7 +434,7 @@ def manual_greedy(
     next_id = int(out.logits[0, -1, :].argmax().item())
     generated = [next_id]
     if eos_id is not None and next_id == eos_id:
-        return tokenizer.decode(generated, skip_special_tokens=True).strip()
+        return strip_thinking(tokenizer.decode(generated, skip_special_tokens=True))
 
     for _ in range(max_new_tokens - 1):
         next_inp = torch.tensor([[next_id]], dtype=torch.long, device=device)
@@ -445,7 +445,7 @@ def manual_greedy(
         if eos_id is not None and next_id == eos_id:
             break
 
-    return tokenizer.decode(generated, skip_special_tokens=True).strip()
+    return strip_thinking(tokenizer.decode(generated, skip_special_tokens=True))
 
 
 @torch.no_grad()
@@ -480,7 +480,7 @@ def manual_greedy_with_positions(
     next_id = int(out.logits[0, -1, :].argmax().item())
     generated = [next_id]
     if eos_id is not None and next_id == eos_id:
-        return tokenizer.decode(generated, skip_special_tokens=True).strip()
+        return strip_thinking(tokenizer.decode(generated, skip_special_tokens=True))
 
     for _ in range(max_new_tokens - 1):
         next_inp = torch.tensor([[next_id]], dtype=torch.long, device=device)
@@ -498,7 +498,7 @@ def manual_greedy_with_positions(
         if eos_id is not None and next_id == eos_id:
             break
 
-    return tokenizer.decode(generated, skip_special_tokens=True).strip()
+    return strip_thinking(tokenizer.decode(generated, skip_special_tokens=True))
 
 
 @torch.no_grad()
@@ -519,7 +519,7 @@ def generate_with_kv(
         )
         n_input = int(q_ids.shape[1])
         new_ids = out[0, n_input:]
-        return tokenizer.decode(new_ids, skip_special_tokens=True).strip()
+        return strip_thinking(tokenizer.decode(new_ids, skip_special_tokens=True))
     except Exception:
         return manual_greedy(
             model, tokenizer, question_text, past_kv_legacy, MAX_NEW_TOKENS

@@ -1,8 +1,17 @@
 __pycache__/
 .venv/
+.venv-tinker/
 *.pyc
 .ruff_cache/
 .claude/
 uv.lock
 *.log
 *.output
+.env
+*.env
+
+# Tinker LoRA experiment: keep code, ignore notes/data/results
+tinker_experiment/data/
+tinker_experiment/results/
+tinker_experiment/results.md
+tinker_experiment/tinker-notes.md

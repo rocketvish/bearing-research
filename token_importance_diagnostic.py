@@ -37,7 +37,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 
 # ----------------------------- constants -----------------------------
 
-MODEL_ID = "Qwen/Qwen2.5-Coder-7B-Instruct"
+from config import MODEL_ID
 TRANSCRIPT_PATH = Path(__file__).parent / "transcript.jsonl"
 RESULTS_PATH = Path(__file__).parent / "results_token_importance.json"
 
@@ -162,13 +162,13 @@ def kv_seq_len(legacy: tuple) -> int:
 
 def verify_rope_for_qwen() -> tuple[bool, str]:
     try:
-        from transformers.models.qwen2 import modeling_qwen2
-        src = inspect.getsource(modeling_qwen2.Qwen2Attention.forward)
+        from transformers.models.qwen3 import modeling_qwen3
+        src = inspect.getsource(modeling_qwen3.Qwen3Attention.forward)
     except Exception as e:
-        return False, f"could not inspect Qwen2Attention.forward: {e}"
+        return False, f"could not inspect Qwen3Attention.forward: {e}"
     matched = [ln.strip() for ln in src.splitlines() if "apply_rotary_pos_emb" in ln]
     if not matched:
-        return False, "apply_rotary_pos_emb not found in Qwen2Attention.forward"
+        return False, "apply_rotary_pos_emb not found in Qwen3Attention.forward"
     assign = next((ln for ln in matched if "= apply_rotary_pos_emb" in ln), None)
     if assign is None:
         return False, "apply_rotary_pos_emb mentioned but not assigned to: " + " | ".join(matched)

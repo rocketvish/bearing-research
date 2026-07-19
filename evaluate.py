@@ -17,9 +17,8 @@ import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 
 from compressor import ContextCompressor
+from config import MODEL_ID, strip_thinking
 from context_builder import ContextBuilder
-
-MODEL_ID = "Qwen/Qwen2.5-Coder-7B-Instruct"
 TRANSCRIPT_PATH = Path(__file__).parent / "transcript.jsonl"
 RESULTS_PATH = Path(__file__).parent / "results.json"
 
@@ -93,7 +92,7 @@ def generate_from_text(model, tokenizer, text: str) -> tuple[str, int]:
         pad_token_id=tokenizer.eos_token_id,
     )
     new_ids = out[0, n_input:]
-    answer = tokenizer.decode(new_ids, skip_special_tokens=True).strip()
+    answer = strip_thinking(tokenizer.decode(new_ids, skip_special_tokens=True))
     del input_ids, out
     return answer, n_input
 
@@ -118,7 +117,7 @@ def _manual_generate_from_embeds(
         )
         cur = torch.cat([cur, next_emb], dim=1)
         del out
-    return tokenizer.decode(generated_ids, skip_special_tokens=True).strip()
+    return strip_thinking(tokenizer.decode(generated_ids, skip_special_tokens=True))
 
 
 @torch.no_grad()
@@ -135,7 +134,7 @@ def generate_from_embeds(model, tokenizer, inputs_embeds: torch.Tensor) -> str:
             pad_token_id=tokenizer.eos_token_id,
         )
         # generate(inputs_embeds=...) returns only the newly generated tokens.
-        answer = tokenizer.decode(out[0], skip_special_tokens=True).strip()
+        answer = strip_thinking(tokenizer.decode(out[0], skip_special_tokens=True))
         del out
         return answer
     except Exception:
